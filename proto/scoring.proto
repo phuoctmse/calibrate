@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package calibrate.scoring.v1;
+
+option go_package = "github.com/phuoctmse/calibrate/gen/scoring";
+
+// ScoringService là service Python độc lập, chỉ chịu trách nhiệm
+// tính toán thống kê/similarity — không biết gì về mutation harness
+// hay CI gate. Go orchestrator gọi service này như 1 dependency bên ngoài.
+service ScoringService {
+  // So sánh 2 đoạn văn bản, trả về điểm similarity (0.0 - 1.0)
+  rpc ComputeSimilarity(SimilarityRequest) returns (SimilarityResponse);
+
+  // Nhận 1 chuỗi điểm số lịch sử + 1 điểm mới, trả về việc điểm mới
+  // có nằm ngoài control limit (SPC) hay không.
+  rpc CheckControlLimit(ControlLimitRequest) returns (ControlLimitResponse);
+}
+
+message SimilarityRequest {
+  string reference_text = 1;   // câu trả lời "chuẩn" tham chiếu
+  string candidate_text = 2;   // output thật từ AI feature cần chấm
+}
+
+message SimilarityResponse {
+  double similarity_score = 1; // 0.0 - 1.0, cosine similarity
+  string model_version = 2;    // pin version để đảm bảo reproducibility
+}
+
+message ControlLimitRequest {
+  repeated double baseline_scores = 1; // lịch sử điểm số ở trạng thái bình thường
+  double new_score = 2;                // điểm số cần kiểm tra
+  double sigma_multiplier = 3;         // mặc định 3.0 (3-sigma rule)
+}
+
+message ControlLimitResponse {
+  bool out_of_control = 1;   // true nếu new_score vượt ngưỡng control limit
+  double upper_limit = 2;
+  double lower_limit = 3;
+  double z_score = 4;
+}
