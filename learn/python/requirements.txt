@@ -1,0 +1,4 @@
+# Chỉ cài khi tới Phase 1 Checkpoint B. Phase 0C không cần gì ngoài Python thuần.
+# Pin version để bài tập không vỡ khi thư viện lên bản mới.
+numpy==1.26.4
+sentence-transformers==2.7.0

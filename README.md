@@ -51,17 +51,30 @@ Consequences:
 
 ```
 calibrate/
-├── ONBOARDING.md              # Lộ trình học trước khi vào Phase 2
+├── ONBOARDING.md               # Lộ trình học (nguồn sự thật) — đọc trước khi đọc code
+├── docs/planning/              # Thi hành lộ trình: working agreement, tiến độ, giáo án, kế hoạch phỏng vấn
+├── learn/                      # Sân tập — KHÔNG phải code dự án
+│   ├── go/                     #   Calibrate Phase 0+1: 1 module calibrate/learn
+│   ├── python/                 #   Calibrate Phase 0+1: 1 venv
+│   ├── checkpoints/            #   Phase 1: gRPC (C) và kịch bản mutation (E)
+│   ├── dsa/                    #   Track phỏng vấn: ~60 bài, mỗi bài kèm test tự viết
+│   └── oop/                    #   Track phỏng vấn: bài thiết kế + bộ câu hỏi
 ├── proto/
 │   └── scoring.proto           # Contract gRPC giữa 2 service
 ├── go-orchestrator/
 │   ├── go.mod
-│   └── cmd/calibrate/main.go   # Skeleton mutation harness
-├── python-scoring-service/
-│   ├── requirements.txt
-│   └── server.py                # Skeleton similarity + control chart
-└── docs/                        # (để trống — điền ADR/report bổ sung khi Phase 2)
+│   └── cmd/calibrate/main.go   # Skeleton mutation harness — khoá tới hết Phase 1
+└── python-scoring-service/
+    ├── requirements.txt
+    └── server.py               # Skeleton similarity + control chart — khoá tới hết Phase 1
 ```
+
+Bắt đầu onboarding: [`docs/planning/progress.md`](./docs/planning/progress.md) cho biết đang ở đâu,
+[`learn/README.md`](./learn/README.md) cho biết làm bài nào tiếp theo.
+
+Song song với onboarding có một track luyện phỏng vấn SDET (OOP + DSA) —
+ngân sách giờ và các khoản đã cắt nằm ở
+[`docs/planning/interview-prep.md`](./docs/planning/interview-prep.md).
 
 ## Failure mode đã chốt (áp dụng khi implement thật)
 
@@ -69,7 +82,7 @@ Khi Python scoring service down/timeout: Go orchestrator **degrade gracefully** 
 
 ## Roadmap
 
-- [ ] Phase 1 — Onboarding (xem `ONBOARDING.md`, 7 tuần, ~1h/ngày)
+- [ ] Phase 1 — Onboarding (xem `ONBOARDING.md`, ~10 tuần, ~1h/ngày; tiến độ ở `docs/planning/progress.md`)
 - [ ] Phase 2 — Implement thật: nối gRPC, chọn SUT (OSS demo app + AI feature), viết 5 kịch bản mutation thật
 - [ ] Phase 3 — Playwright E2E lấy output thật từ UI
 - [ ] Phase 4 — Chạy full experiment, đo Mutation Kill Rate thật, viết báo cáo kết quả

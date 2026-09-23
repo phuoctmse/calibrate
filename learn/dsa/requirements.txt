@@ -1,0 +1,3 @@
+# Cho bài DSA Python. Nhẹ, cài ngay được từ tháng 3 — khác requirements.txt
+# của learn/python (nặng vài GB, chỉ cài khi tới Checkpoint B).
+pytest==8.2.0

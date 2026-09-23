@@ -1,0 +1,20 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Go — binary sinh ra khi `go build` thay vì `go run`.
+# Trên Windows binary luôn có .exe nên không cần liệt kê tên từng bài
+# (liệt kê tên trần sẽ ignore nhầm chính thư mục bài tập cùng tên).
+*.exe
+
+# gRPC generated code (Checkpoint C) — sinh lại được, không commit
+*_pb2.py
+*_pb2_grpc.py
+*.pb.go
+
+# pytest (bài DSA Python)
+.pytest_cache/
+
+# Báo cáo do bài oop/runner sinh ra khi chạy thử
+oop/runner/**/*.json
